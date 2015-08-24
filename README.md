@@ -6,12 +6,12 @@ Multi-container setup to run Spotweb. It uses MariaDB, PHP-FPM and nginx.
 
 To build the containers:
 ```bash
-contrib/build.sh
+$ contrib/build.sh
 ```
 
 To initially run the containers:
 ```bash
-contrib/run.sh
+$ contrib/run.sh
 ```
 
 Database credentials as used in the MariaDB containers are also passed to the container running PHP. When launching it will automatically create the database structure if needed (e.g. on the first run).
@@ -25,14 +25,14 @@ After logging in spotweb needs to be configured to use a Usenet server and to ha
 
 To stop the spotweb containers run:
 ```bash
-docker stop spotweb{nginx,php,db}
+$ docker stop spotweb{nginx,php,db}
 ```
 
 ## Starting the containers
 
 To start the spotweb containers run:
 ```bash
-docker start spotweb{db,php,nginx}
+$ docker start spotweb{db,php,nginx}
 ```
 
 ## Cron
@@ -43,8 +43,8 @@ New spots are downloaded every hour using the '@hourly' timestamp in cron. Runni
 
 If you - for some reason - want to delete the containers run:
 ```bash
-docker stop spotweb{nginx,php,db}
-docker rm spotweb{nginx,php,db}
+$ docker stop spotweb{nginx,php,db}
+$ docker rm spotweb{nginx,php,db}
 ```
 
 Afterwards (intermediate containers) can be deleted.
