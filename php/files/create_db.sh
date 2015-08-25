@@ -16,6 +16,9 @@ if [ $retval == 1 ]; then
    echo "Run upgrade-db.php twice.. Why? Dunno. Bug in Spotweb ..."
    /usr/local/bin/php /var/www/html/spotweb/upgrade-db.php
    /usr/local/bin/php /var/www/html/spotweb/upgrade-db.php --reset-password admin
+
+   echo "update settings set value = 'http://jijhaatmij.hopto.me/blacklist.txt' where name = 'blacklist_url'" | $MYSQL
+   echo "update settings set value = 'http://jijhaatmij.hopto.me/whitelist.txt' where name = 'whitelist_url'" | $MYSQL
 fi
 
 exit 0
