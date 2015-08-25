@@ -19,6 +19,7 @@ if [ $retval == 1 ]; then
 
    echo "update settings set value = 'http://jijhaatmij.hopto.me/blacklist.txt' where name = 'blacklist_url'" | $MYSQL
    echo "update settings set value = 'http://jijhaatmij.hopto.me/whitelist.txt' where name = 'whitelist_url'" | $MYSQL
+   echo "update settings set value = 1 where name = 'external_blacklist' or name = 'external_whitelist'" | $MYSQL
 fi
 
 exit 0
