@@ -9,13 +9,13 @@ RUN apt-get install -q -y git
 RUN apt-get install -q -y libgd-dev libgmp3-dev libfreetype6-dev libjpeg-dev libpq-dev libpng12-dev
 RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
-       docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring gd zip gettext gmp bcmath
+       docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring gd zip gettext gmp bcmath opcache
 
 # Deploy Spotweb
 RUN git clone -q https://github.com/spotweb/spotweb.git /var/www/html/spotweb
 
 # Configure PHP
-ADD files/spotweb.ini /usr/local/etc/php/conf.d/
+ADD files/spotweb.ini files/opcache.ini /usr/local/etc/php/conf.d/
 
 # Configure Spotweb
 ADD files/dbsettings.inc.php /var/www/html/spotweb/
