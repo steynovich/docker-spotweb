@@ -1,25 +1,25 @@
 FROM php:fpm
-MAINTAINER steyn@steynhuizinga.nl
+MAINTAINER github@steynhuizinga.nl
 
 # Install git
 RUN apt-get update -q 
 RUN apt-get install -q -y git
 
+# Install PDO extentions
+RUN apt-get install -q -y libgd-dev libgmp3-dev libfreetype6-dev libjpeg-dev libpq-dev libpng12-dev
+RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+       docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring gd zip gettext gmp bcmath
+
 # Deploy Spotweb
 RUN git clone -q https://github.com/spotweb/spotweb.git /var/www/html/spotweb
 
 # Configure PHP
-RUN echo "date.timezone=Europe/Amsterdam" > /usr/local/etc/php/conf.d/timezone.ini 
+ADD files/spotweb.ini /usr/local/etc/php/conf.d/
 
 # Configure Spotweb
 ADD files/dbsettings.inc.php /var/www/html/spotweb/
 RUN mkdir -m777 /var/www/html/spotweb/cache
-
-# Install PDO extentions
-RUN apt-get install -q -y libgd-dev libgmp3-dev libfreetype6-dev libjpeg-dev libpq-dev libpng12-dev
-RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h 
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \ 
-       docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring gd zip gettext gmp bcmath
 
 # Install cron
 RUN apt-get install -y -q cron
