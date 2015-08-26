@@ -1,5 +1,5 @@
 FROM nginx
-MAINTAINER steyn@steynhuizinga.nl
+MAINTAINER github@steynhuizinga.nl
 
 RUN rm /etc/nginx/conf.d/default.conf
 ADD files/spotweb.conf /etc/nginx/conf.d/
