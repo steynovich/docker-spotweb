@@ -4,7 +4,7 @@ Multi-container setup to run Spotweb. It uses MariaDB, PHP-FPM and nginx.
 
 ## First run
 
-To build the containers:
+(Optionally) To build the containers yourself:
 ```bash
 $ contrib/build.sh
 ```
@@ -48,6 +48,13 @@ $ docker rm spotweb{nginx,php,db}
 ```
 
 Afterwards (intermediate containers) can be deleted.
+
+## Deleting the images
+
+To delete the self-built images run:
+```bash
+$ docker rmi steynovich/spotweb-{nginx,php}
+```
 
 ## Contrib
 
