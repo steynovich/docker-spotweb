@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 cat << EOF > /root/profile.sh
 export MYSQL_PORT_3306_TCP_ADDR=$MYSQL_PORT_3306_TCP_ADDR

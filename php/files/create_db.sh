@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 MYSQL="mysql -h${MYSQL_PORT_3306_TCP_ADDR} -u${MYSQL_ENV_MYSQL_USER} -p${MYSQL_ENV_MYSQL_PASSWORD} ${MYSQL_ENV_MYSQL_DATABASE} -s"
 
