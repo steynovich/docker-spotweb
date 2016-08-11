@@ -10,22 +10,22 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 RUN mkdir -p /var/www/html/spotweb && git clone -q https://github.com/spotweb/spotweb.git /var/www/html/spotweb
 
 # Configure PHP
-ADD files/spotweb.ini files/opcache.ini /usr/local/etc/php/conf.d/
+COPY files/spotweb.ini files/opcache.ini /usr/local/etc/php/conf.d/
 
 # Configure Spotweb
-ADD files/dbsettings.inc.php /var/www/html/spotweb/
+COPY files/dbsettings.inc.php /var/www/html/spotweb/
 RUN mkdir -m777 /var/www/html/spotweb/cache
 
 # Install cron
-ADD files/cron.cfg /root/
-ADD files/cron_env.sh /root/
+COPY files/cron.cfg /root/
+COPY files/cron_env.sh /root/
 RUN crontab /root/cron.cfg
 
 # Install MySQL client for db creation
-ADD files/create_db.sh /root/
+COPY files/create_db.sh /root/
 
 # Install supervisord
-ADD files/supervisord.conf /etc/supervisord.conf
+COPY files/supervisord.conf /etc/supervisord.conf
 
 # Finally run everything from supervisord
 CMD ["/usr/bin/supervisord"]
