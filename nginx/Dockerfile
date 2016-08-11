@@ -1,4 +1,4 @@
-FROM nginx:1.10.0-alpine
+FROM nginx:1.11.1-alpine
 MAINTAINER github@steynhuizinga.nl
 
 RUN rm /etc/nginx/conf.d/default.conf
