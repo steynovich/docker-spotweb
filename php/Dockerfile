@@ -1,4 +1,4 @@
-FROM php:7.0.6-fpm-alpine
+FROM php:7.0.9-fpm-alpine
 MAINTAINER github@steynhuizinga.nl
 
 # Install packages
