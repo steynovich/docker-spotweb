@@ -1,17 +1,17 @@
 # Intro
 
-Multi-container setup to run Spotweb. It uses MariaDB, PHP-FPM and nginx.
+Multi-container setup to run Spotweb. It uses a MariaDB container and a combined PHP-FPM and nginx container.
 
 ## First run
 
 (Optionally) To build the containers yourself:
 ```bash
-$ contrib/build.sh
+$ docker build --rm -t steynovich/spotweb:latest .
 ```
 
 To initially run the containers:
 ```bash
-$ contrib/run.sh
+$ docker-compose up
 ```
 
 Database credentials as used in the MariaDB containers are also passed to the container running PHP. When launching it will automatically create the database structure if needed (e.g. on the first run).
@@ -25,14 +25,14 @@ After logging in spotweb needs to be configured to use a Usenet server and to ha
 
 To stop the spotweb containers run:
 ```bash
-$ docker stop spotweb{nginx,php,db}
+$ docker-compose stop
 ```
 
 ## Starting the containers
 
 To start the spotweb containers run:
 ```bash
-$ docker start spotweb{db,php,nginx}
+$ docker-compose start
 ```
 
 ## Cron
@@ -43,8 +43,7 @@ New spots are downloaded every hour using the '@hourly' timestamp in cron. Runni
 
 If you - for some reason - want to delete the containers run:
 ```bash
-$ docker stop spotweb{nginx,php,db}
-$ docker rm spotweb{nginx,php,db}
+$ docker-compose down
 ```
 
 Afterwards (intermediate containers) can be deleted.
@@ -53,9 +52,10 @@ Afterwards (intermediate containers) can be deleted.
 
 To delete the self-built images run:
 ```bash
-$ docker rmi steynovich/spotweb-{nginx,php}
+$ docker rmi steynovich/spotweb:latest
 ```
 
-## Contrib
-
-In the directory/ example scripts can be found. 
+## Delete the volumes
+```bash
+$ docker rm spotweb_db spotweb_cache
+```
