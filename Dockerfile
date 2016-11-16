@@ -173,6 +173,7 @@ RUN apk add --no-cache --virtual .spotweb-deploydeps git \
 		echo '   echo "update settings set value = 1 where name = \"external_blacklist\" or name = \"external_whitelist\"" | $MYSQL'; \
 		echo 'else'; \
 		echo '   echo "Database already exists"'; \
+		echo '   /usr/local/bin/php /var/www/html/spotweb/bin/upgrade-db.php'; \
 		echo 'fi'; \
 		echo; \
 		echo 'exit 0'; \
