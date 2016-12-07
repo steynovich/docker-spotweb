@@ -1,4 +1,4 @@
-FROM php:7.0.13-fpm-alpine
+FROM php:7.1.0-fpm-alpine
 
 MAINTAINER github@steynhuizinga.nl
 
@@ -108,7 +108,7 @@ RUN apk add --no-cache --virtual .spotweb-builddeps \
 
 
 # Install cron
-RUN echo '0 * * * * (. /root/profile.sh && /usr/local/bin/php /var/www/html/spotweb/retrieve.php) > /proc/1/fd/0 2>&1' | crontab - \
+RUN echo '0 * * * * (. /root/profile.sh && cd /var/www/html/spotweb && /usr/local/bin/php retrieve.php) > /dev/null 2>&1' | crontab - \
 	&& { \
 		echo 'export MYSQL_PORT_3306_TCP_ADDR=$MYSQL_PORT_3306_TCP_ADDR'; \
 		echo 'export MYSQL_ENV_MYSQL_DATABASE=$MYSQL_ENV_MYSQL_DATABASE'; \
