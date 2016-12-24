@@ -184,6 +184,7 @@ RUN apk add --no-cache --virtual .spotweb-deploydeps git \
 RUN { \
 	echo '#!/bin/sh'; \
 	echo '/root/init_db.sh'; \
+	echo 'chown -R www-data: /var/www/html/spotweb/cache'; \
 	echo '/usr/bin/supervisord'; \
 	} | tee /entrypoint.sh \
 	&& chmod +x /entrypoint.sh
