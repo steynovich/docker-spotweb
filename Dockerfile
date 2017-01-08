@@ -1,6 +1,6 @@
 FROM php:7.1.0-fpm-alpine
 
-MAINTAINER github@steynhuizinga.nl
+LABEL maintainer=github@steynhuizinga.nl
 
 # Install and configure nginx and php deps
 RUN apk add --no-cache --virtual .spotweb-rundeps \
