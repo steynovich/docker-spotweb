@@ -1,0 +1,46 @@
+image: docker:latest
+
+variables:
+  CONTAINER_TEST_IMAGE: ${REGISTRY}/${CI_PROJECT_NAME}-build:${CI_BUILD_REF_NAME}_${CI_BUILD_REF}_test
+  CONTAINER_RELEASE_IMAGE: ${REGISTRY}/${CI_PROJECT_NAME}:${CI_BUILD_TAG}
+
+stages:
+  - build
+  - release
+  - cleanup
+
+before_script:
+  - docker info
+
+build:
+  stage: build
+  script:
+    - echo Building $CONTAINER_TEST_IMAGE
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS
+    - docker build --rm -t $CONTAINER_TEST_IMAGE .
+
+push:
+  stage: build
+  only:
+    - tags
+  script:
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS
+    - docker push $CONTAINER_TEST_IMAGE
+
+release:
+  stage: release
+  only:
+    - tags
+  script:
+    - echo Releasing to $CONTAINER_RELEASE_IMAGE
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
+
+cleanup_job:
+  stage: cleanup
+  script:
+  - docker rmi $CONTAINER_TEST_IMAGE
+  when: always
+
