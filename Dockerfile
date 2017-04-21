@@ -1,4 +1,4 @@
-FROM php:7.1.3-fpm-alpine
+FROM php:7.1.4-fpm-alpine
 
 # Install and configure nginx and php deps
 RUN apk add --no-cache --virtual .spotweb-rundeps \
