@@ -3,6 +3,7 @@ image: docker:latest
 variables:
   IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}
   CONTAINER_RELEASE_IMAGE: steynovich/spotweb:${CI_COMMIT_TAG}
+  CONTAINER_LATEST_IMAGE: steynovich/spotweb:latest
 
 stages:
   - build
@@ -29,3 +30,13 @@ release:
     - docker pull $IMAGE_TAG
     - docker tag $IMAGE_TAG $CONTAINER_RELEASE_IMAGE
     - docker push $CONTAINER_RELEASE_IMAGE
+
+latest:
+  stage: release
+  only:
+    - tags
+  script:
+    - echo "Releasing $CONTAINER_LATEST_IMAGE"
+    - docker pull $IMAGE_TAG
+    - docker tag $IMAGE_TAG $CONTAINER_LATEST_IMAGE
+    - docker push $CONTAINER_LATEST_IMAGE
