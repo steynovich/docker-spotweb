@@ -54,7 +54,7 @@ RUN apk add --no-cache --virtual .spotweb-rundeps \
 			echo; \
 			echo '	location ~ \.php$ {'; \
 			echo '		fastcgi_split_path_info ^(.+\.php)(/.+)$;'; \
-			echo '		fastcgi_pass localhost:9000;'; \
+			echo '		fastcgi_pass 127.0.0.1:9000;'; \
 			echo '		fastcgi_index index.php;'; \
 			echo '		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;'; \
 			echo '		include fastcgi_params;'; \
