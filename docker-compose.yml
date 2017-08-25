@@ -1,17 +1,17 @@
-web:
-  image: steynovich/spotweb:latest
-  links:
-  - database:mysql
-  ports:
-  - "80:80"
-  volumes:
-  - spotweb_cache:/var/www/html/spotweb/cache
-database:
-  environment:
-    MYSQL_ROOT_PASSWORD: randompw
-    MYSQL_USER: spotweb
-    MYSQL_PASSWORD: spotweb
-    MYSQL_DATABASE: spotweb
-  image: mariadb:latest
-  volumes:
-  - spotweb_db:/var/lib/mysql
+version: '2'
+services:
+  database:
+    image: mariadb:10.2.8
+    environment:
+      MYSQL_DATABASE: OBFUSCATED
+      MYSQL_PASSWORD: spotweb
+      MYSQL_ROOT_PASSWORD: OBFUSCATED
+      MYSQL_USER: spotweb
+    volumes:
+    - /mnt/vol/spotweb_db:/var/lib/mysql
+  web:
+    image: steynovich/spotweb:20170826
+    volumes:
+    - /mnt/vol/spotweb_cache:/var/www/html/spotweb/cache
+    links:
+    - database:mysql
