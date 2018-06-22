@@ -16,6 +16,11 @@ before_script:
 
 build:
   stage: build
+  services:
+  - name: docker:dind
+    alias: docker-dind
+  variables:
+    DOCKER_HOST: "tcp://docker-dind:2375"
   script:
     - echo "Building $IMAGE_TAG"
     - docker build --rm -t $IMAGE_TAG .
@@ -23,6 +28,11 @@ build:
 
 release:
   stage: release
+  services:
+  - name: docker:dind
+    alias: docker-dind
+  variables:
+    DOCKER_HOST: "tcp://docker-dind:2375"
   only:
     - tags
   script:
@@ -33,6 +43,11 @@ release:
 
 latest:
   stage: release
+  services:
+  - name: docker:dind
+    alias: docker-dind
+  variables:
+    DOCKER_HOST: "tcp://docker-dind:2375"
   only:
     - tags
   script:
